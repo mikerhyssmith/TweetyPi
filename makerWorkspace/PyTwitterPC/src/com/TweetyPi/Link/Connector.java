@@ -12,8 +12,6 @@ public class Connector {
 	                            SerialPort.DATABITS_8,
 	                            SerialPort.STOPBITS_1,
 	                            SerialPort.PARITY_NONE);//Set params. Also you can set params by this string: serialPort.setParams(9600, 8, 1, 0);
-	        //serialPort.writeString("yolo");
-	        //serialPort.writeInt(2);
 			String data = input;
 			try 
             { 

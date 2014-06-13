@@ -24,7 +24,7 @@ public class LocationHandler {
 		//System.out.println("State     : " + Geobytes.get(Geobytes.Region));
 		//System.out.println("City      : " + Geobytes.get(Geobytes.City));
 
-		//System.out.println("\nMyLocation = " + Geobytes.getMyLocation());
+		System.out.println("\nMyLocation = " + Geobytes.getMyLocation());
 		Connector connector = new Connector();
 		try {
 			connector.writeToScreen("City: " + Geobytes.get(Geobytes.City));
