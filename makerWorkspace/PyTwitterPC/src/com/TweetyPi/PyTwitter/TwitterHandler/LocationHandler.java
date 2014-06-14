@@ -7,7 +7,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
-import com.TweetyPi.Link.Connector;
+
 import com.smartechz.tools.mygeoloc.GeoPlanetExplorer;
 import com.smartechz.tools.mygeoloc.Geobytes;
 
@@ -25,10 +25,9 @@ public class LocationHandler {
 		//System.out.println("City      : " + Geobytes.get(Geobytes.City));
 
 		//System.out.println("\nMyLocation = " + Geobytes.getMyLocation());
-		Connector connector = new Connector();
 		try {
-			connector.writeToScreen("City: " + "Swansea");
-			String output = "You are located in " + "Swansea";
+			System.out.println("City: " + Geobytes.get(Geobytes.City));
+			String output = "You are located in " +  Geobytes.get(Geobytes.City);
 			GoogleSpeech GS = new GoogleSpeech();
 			GS.textToSpeech(output);
 		} catch (Exception e) {

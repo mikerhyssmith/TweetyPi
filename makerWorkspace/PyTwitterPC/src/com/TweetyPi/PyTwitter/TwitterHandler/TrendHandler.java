@@ -1,8 +1,8 @@
 package com.TweetyPi.PyTwitter.TwitterHandler;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
+import javazoom.jl.decoder.JavaLayerException;
 import twitter4j.Trend;
 import twitter4j.Trends;
 import twitter4j.Twitter;
@@ -10,15 +10,12 @@ import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
-import com.TweetyPi.Link.Connector;
 
 public class TrendHandler {
 
-	public Trend[] getTrends(int locationID) throws Exception{
+	public Trend[] getTrends(int locationID) {
 		
-		//Twitter twitter = TwitterFactory.getSingleton();
 		ConfigurationBuilder cb = new ConfigurationBuilder();
-		Connector connector = new Connector();
 		cb.setDebugEnabled(true)
 		  .setOAuthConsumerKey("DYV9WP2vbAVT8ydS6mSr9w")
 		  .setOAuthConsumerSecret("K2QkNzscJd5Q60XE0rzmPkK13VKgO10BeZnAe2H8gs")
@@ -29,13 +26,13 @@ public class TrendHandler {
 		
 		Trend[] trendArray = null;
 		try {
-			ArrayList trendList = new ArrayList();
-			Trends currentTrends = twitter.getPlaceTrends(36758);
+			ArrayList<String> trendList = new ArrayList<String>();
+			Trends currentTrends = twitter.getPlaceTrends(locationID);
 			trendArray = currentTrends.getTrends();
 			for (Trend t : trendArray) {
 				
 				 trendList.add(t.getName());
-				 connector.writeToScreen(t.getName());
+				 System.out.println(t.getName());
 				 if(t.getName().charAt(0) == '#'){
 						String removeHash = t.getName().substring(1);
 						GoogleSpeech GS = new GoogleSpeech();
@@ -43,17 +40,13 @@ public class TrendHandler {
 						NewsHandler nh = new NewsHandler();
 						
 						try {
-							Connector c = new Connector();
 							String result = nh.getHeadline(removeHash);
-							c.writeToScreen(result);
+							System.out.println(result);
 							GS.textToSpeech(result);
 							Thread.sleep(8000);
 							System.out.println(result);
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
 						} catch (Exception e) {
-							// TODO Auto-generated catch block
+							
 							e.printStackTrace();
 						}
 						
@@ -65,15 +58,11 @@ public class TrendHandler {
 				 		NewsHandler nh = new NewsHandler();
 						
 						try {
-							Connector c = new Connector();
 							String result = nh.getHeadline(t.getName());
-							c.writeToScreen(result);
+							System.out.println(result);
 							GS.textToSpeech(result);
 							Thread.sleep(8000);
 							System.out.println(result);
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
 						} catch (Exception e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -81,13 +70,15 @@ public class TrendHandler {
 					}
 				
 			}
-			for(int i = 0; i < trendList.size(); i++){
-				System.out.println(trendList.get(i));
-			}
+			//for(int i = 0; i < trendList.size(); i++){
+				//System.out.println(trendList.get(i));
+			//}
 
 		} catch (TwitterException e) {
-			// TODO Auto-generated catch block
+			System.out.println("Twitter Error");
 			e.printStackTrace();
+		} catch (JavaLayerException e1) {
+			System.out.println("Google Speech Error");
 		}
 		return trendArray;
 	}
