@@ -2,6 +2,8 @@ package com.TweetyPi.PyTwitter.TwitterHandler;
 
 import java.util.ArrayList;
 
+
+
 import javazoom.jl.decoder.JavaLayerException;
 import twitter4j.Trend;
 import twitter4j.Trends;
@@ -13,14 +15,29 @@ import twitter4j.conf.ConfigurationBuilder;
 
 public class TrendHandler {
 
-	public Trend[] getTrends(int locationID) {
+	String conKey;
+	String conSec;
+	String authTok;
+	String tokSec;
+
+	public TrendHandler (String conKey, String conSec, String authTok,String tokSec){
+		this.conKey = conKey;
+		this.conSec = conSec;
+		this.authTok = authTok;
+		this.tokSec = tokSec;
 		
+		
+	}
+	
+	public Trend[] getTrends(int locationID) throws Exception{
+		
+		//Twitter twitter = TwitterFactory.getSingleton();
 		ConfigurationBuilder cb = new ConfigurationBuilder();
 		cb.setDebugEnabled(true)
-		  .setOAuthConsumerKey("DYV9WP2vbAVT8ydS6mSr9w")
-		  .setOAuthConsumerSecret("K2QkNzscJd5Q60XE0rzmPkK13VKgO10BeZnAe2H8gs")
-		  .setOAuthAccessToken("20921265-v1LmZfViPQPSxyHRtp0U5cd7R8bTZwqexbje5N2I0")
-		  .setOAuthAccessTokenSecret("vzeEbwyC9YtQNomUmwBNfmTiBWjMdze52pAJxvG6VEGNv");
+		  .setOAuthConsumerKey(conKey)
+		  .setOAuthConsumerSecret(conSec)
+		  .setOAuthAccessToken(authTok)
+		  .setOAuthAccessTokenSecret(tokSec);
 		TwitterFactory tf = new TwitterFactory(cb.build());
 		Twitter twitter = tf.getInstance();
 		
