@@ -11,8 +11,7 @@ public class TestClass {
 		String[] twitterCred = new String[4];
 		try {
 			
-			FileReader twitterFile = new FileReader(
-					"C:\\Users\\mike\\Documents\\TwitterAuth\\TwitterAuth.txt");
+			FileReader twitterFile = new FileReader("C:\\Users\\mike\\Documents\\TwitterAuth\\TwitterAuth.txt");
 			BufferedReader bufferReader = new BufferedReader(twitterFile);
 			String line;
 			int counter = 0;
@@ -25,8 +24,7 @@ public class TestClass {
 			// Close the buffer reader
 			bufferReader.close();
 		} catch (Exception e) {
-			System.out.println("Error while reading file line by line:"
-					+ e.getMessage());
+			System.out.println("Error while reading file line by line:" + e.getMessage());
 		}
 
 		LocationHandler lh = new LocationHandler();

@@ -1,6 +1,11 @@
+
 package com.TweetyPi.PyTwitter.TwitterHandler;
 
 import java.io.IOException;
+/**
+ * @author Mike Smith and Jon Phillips
+ * 
+ */
 import java.io.InputStream;
 
 import javazoom.jl.decoder.JavaLayerException;
