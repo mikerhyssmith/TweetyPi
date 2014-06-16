@@ -1,5 +1,7 @@
 package com.TweetyPi.PyTwitter.UserInterface;
 
+import java.util.ArrayList;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -20,6 +22,7 @@ import org.eclipse.wb.swt.SWTResourceManager;
 
 import twitter4j.Trend;
 
+import com.TweetyPi.PyTwitter.TwitterHandler.NewsHandler;
 import com.TweetyPi.PyTwitter.TwitterHandler.TweetyPi;
 
 public class Interface {
@@ -27,6 +30,7 @@ public class Interface {
 	protected Shell shlTweetyPi;
 	private Text text;
 	private List list;
+	private Combo combo;
 	/**
 	 * Launch the application.
 	 * @param args
@@ -93,6 +97,7 @@ public class Interface {
 		
 		text = new Text(composite_1, SWT.BORDER);
 		text.setBounds(0, 177, 276, 124);
+		text.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
 		
 		Label lblLocation = new Label(composite_1, SWT.NONE);
 		lblLocation.setBackground(SWTResourceManager.getColor(0, 153, 204));
@@ -100,7 +105,7 @@ public class Interface {
 		lblLocation.setBounds(10, 10, 114, 15);
 		lblLocation.setText("Select Location");
 		
-		Combo combo = new Combo(composite_1, SWT.READ_ONLY);
+		combo = new Combo(composite_1, SWT.READ_ONLY);
 		combo.setBackground(SWTResourceManager.getColor(SWT.COLOR_WHITE));
 		combo.setBounds(162, 10, 104, 23);
 		combo.add("My Location");
@@ -138,13 +143,38 @@ public class Interface {
 		btnNewButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
+				String location;
 				try {
+					list.removeAll();
 					TweetyPi tp = new TweetyPi();
-					
-					Trend[] trendList = tp.th.getTrendList(tp.lh.getWOEID(tp.lh.getLocation()));
+					if(combo.getItems()[combo.getSelectionIndex()].contains("My Location")){
+						location = tp.lh.getLocation();
+			
+					}else{
+						location = combo.getItem(combo.getSelectionIndex());
+					}
+					System.out.println("loc " + location);
+					Trend[] trendList = tp.th.getTrendList(tp.lh.getWOEID(location));
 					for(Trend t : trendList){
 						list.add(t.getName());
 					}
+					
+					NewsHandler nh = new NewsHandler();
+					ArrayList<String> headlines = new ArrayList<String>();
+					for(int i =0 ; i < trendList.length; i++){
+						if(trendList[i].getName().contains("#")){
+							
+							String removeHash = trendList[i].getName().substring(1);
+							headlines.add(nh.getHeadline(removeHash));
+
+						}else{
+							headlines.add(nh.getHeadline(trendList[i].getName()));
+
+							
+						}
+						
+					}
+					text.setText(headlines.get(0));
 				} catch (Exception excep) {
 					// TODO Auto-generated catch block
 					excep.printStackTrace();

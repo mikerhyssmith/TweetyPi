@@ -13,9 +13,7 @@ import com.smartechz.tools.mygeoloc.Geobytes;
 
 public class LocationHandler {
 
-	public LocationHandler() {
-
-	}
+	
 
 	public String getLocation() throws IOException, IllegalArgumentException,IllegalAccessException, ParserConfigurationException, SAXException {
 		// Geobytes
@@ -43,7 +41,20 @@ public class LocationHandler {
 	}
 	
 	public int getWOEID(String location) throws MalformedURLException, IllegalArgumentException, IllegalAccessException, IOException{
-		String MyWOEID = GeoPlanetExplorer.getWOEID(Geobytes.get(Geobytes.City));
+		String MyWOEID;
+		
+		if(location.contains("My Location")){
+			System.out.println(Geobytes.City);
+		
+			MyWOEID = GeoPlanetExplorer.getWOEID(Geobytes.get(Geobytes.getMyLocation()));
+
+		}else{
+			System.out.println("Location " + location);
+			MyWOEID = GeoPlanetExplorer.getWOEID(location);
+
+		}
+		
+		
 		//System.out.println("\nMyLocation's WOEID = " + MyWOEID);
 		
 		int woeid = Integer.parseInt(MyWOEID);
