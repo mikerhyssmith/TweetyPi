@@ -20,10 +20,10 @@ public class TrendHandler {
 		ConfigurationBuilder cb = new ConfigurationBuilder();
 		Connector connector = new Connector();
 		cb.setDebugEnabled(true)
-		  .setOAuthConsumerKey("DYV9WP2vbAVT8ydS6mSr9w")
-		  .setOAuthConsumerSecret("K2QkNzscJd5Q60XE0rzmPkK13VKgO10BeZnAe2H8gs")
-		  .setOAuthAccessToken("20921265-v1LmZfViPQPSxyHRtp0U5cd7R8bTZwqexbje5N2I0")
-		  .setOAuthAccessTokenSecret("vzeEbwyC9YtQNomUmwBNfmTiBWjMdze52pAJxvG6VEGNv");
+		  .setOAuthConsumerKey("w")
+		  .setOAuthConsumerSecret("s")
+		  .setOAuthAccessToken("")
+		  .setOAuthAccessTokenSecret("");
 		TwitterFactory tf = new TwitterFactory(cb.build());
 		Twitter twitter = tf.getInstance();
 		
