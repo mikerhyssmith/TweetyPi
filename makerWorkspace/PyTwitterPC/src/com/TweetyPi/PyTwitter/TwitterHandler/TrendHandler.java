@@ -15,10 +15,13 @@ import twitter4j.conf.ConfigurationBuilder;
 
 public class TrendHandler {
 
-	String conKey;
-	String conSec;
-	String authTok;
-	String tokSec;
+	private String conKey;
+	private String conSec;
+	private String authTok;
+	private String tokSec;
+	private ConfigurationBuilder cb;
+	private TwitterFactory tf;
+	private Twitter twitter;
 
 	public TrendHandler (String conKey, String conSec, String authTok,String tokSec){
 		this.conKey = conKey;
@@ -26,20 +29,22 @@ public class TrendHandler {
 		this.authTok = authTok;
 		this.tokSec = tokSec;
 		
+		cb = new ConfigurationBuilder();
+		cb.setDebugEnabled(true)
+		  .setOAuthConsumerKey(conKey)
+		  .setOAuthConsumerSecret(conSec)
+		  .setOAuthAccessToken(authTok)
+		  .setOAuthAccessTokenSecret(tokSec);
+		tf = new TwitterFactory(cb.build());
+		 twitter = tf.getInstance();
+		
 		
 	}
 	
 	public Trend[] getTrends(int locationID) throws Exception{
 		
 		//Twitter twitter = TwitterFactory.getSingleton();
-		ConfigurationBuilder cb = new ConfigurationBuilder();
-		cb.setDebugEnabled(true)
-		  .setOAuthConsumerKey(conKey)
-		  .setOAuthConsumerSecret(conSec)
-		  .setOAuthAccessToken(authTok)
-		  .setOAuthAccessTokenSecret(tokSec);
-		TwitterFactory tf = new TwitterFactory(cb.build());
-		Twitter twitter = tf.getInstance();
+		
 		
 		Trend[] trendArray = null;
 		try {
@@ -98,5 +103,20 @@ public class TrendHandler {
 			System.out.println("Google Speech Error");
 		}
 		return trendArray;
+	}
+	
+	public Trend[] getTrendList(int locationID){
+		Trend[] trendArray = null;
+		
+			try {
+				Trends currentTrends = twitter.getPlaceTrends(locationID);
+				trendArray = currentTrends.getTrends();
+			} catch (TwitterException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return trendArray;
+		
+	
 	}
 }
