@@ -95,7 +95,7 @@ public class Interface {
 		composite_1.setBackground(SWTResourceManager.getColor(0, 153, 204));
 		composite_1.setLayoutData(new RowData(276, 311));
 		
-		text = new Text(composite_1, SWT.BORDER);
+		text = new Text(composite_1, SWT.MULTI | SWT.BORDER | SWT.WRAP );
 		text.setBounds(0, 177, 276, 124);
 		text.setFont(SWTResourceManager.getFont("Arial", 9, SWT.NORMAL));
 		
@@ -174,6 +174,7 @@ public class Interface {
 						}
 						
 					}
+					int textLimit = 44;
 					text.setText(headlines.get(0));
 				} catch (Exception excep) {
 					// TODO Auto-generated catch block
