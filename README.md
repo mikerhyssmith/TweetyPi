@@ -12,4 +12,4 @@ https://www.youtube.com/watch?v=Kw0jQoLpWzA"
 
 https://www.youtube.com/watch?v=rglNNtj4aCo"
 
-PyTwitterLocation and PyTwitterRandom are the original code used for the competition which provide the users location or select a location from a pre entered list respectively. PyTwitterPC is an extension to the original program to include a PC interface.
+
